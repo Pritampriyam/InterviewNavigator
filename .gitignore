@@ -1,0 +1,54 @@
+# =========================
+# Node.js
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+
+# =========================
+# Build folders
+# =========================
+dist/
+build/
+dist-ssr/
+.vite/
+
+# =========================
+# Logs
+# =========================
+logs
+*.log
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# =========================
+# Misc
+# =========================
+*.local
+coverage/
+
+mongo-data/
+Text/
