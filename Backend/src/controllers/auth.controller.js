@@ -19,11 +19,11 @@ async function registerUserController(req, res) {
     }
 
     const isUserAlreadyExists = await userModel.findOne({
-        $or: [ { username }, { email } ]
+        $or: [{ username }, { email }]
     })
 
     if (isUserAlreadyExists) {
-        return res.status(400).json({
+        return res.status(409).json({
             message: "Account already exists with this email address or username"
         })
     }
@@ -42,7 +42,12 @@ async function registerUserController(req, res) {
         { expiresIn: "1d" }
     )
 
-    res.cookie("token", token)
+    // res.cookie("token", token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: false,     // ✅ for localhost
+        sameSite: "lax"
+    })
 
 
     res.status(201).json({

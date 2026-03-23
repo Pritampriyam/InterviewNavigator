@@ -63,6 +63,7 @@ const Interview = () => {
     const { interviewId } = useParams()
 
     useEffect(() => {
+        console.log("[Interview] useEffect interviewId changed", { interviewId })
         if (interviewId) {
             getReportById(interviewId)
         }

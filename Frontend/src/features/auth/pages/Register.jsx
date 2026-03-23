@@ -9,12 +9,20 @@ const Register = () => {
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
 
-    const {loading,handleRegister} = useAuth()
+    const { loading, error, handleRegister } = useAuth()
     
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await handleRegister({username,email,password})
-        navigate("/")
+
+        if (!username.trim() || !email.trim() || !password.trim()) {
+            alert('Please fill all fields')
+            return
+        }
+
+        const data = await handleRegister({ username, email, password })
+        if (data) {
+            navigate("/")
+        }
     }
 
     if(loading){
@@ -27,6 +35,7 @@ const Register = () => {
                 <h1>Register</h1>
 
                 <form onSubmit={handleSubmit}>
+                    {error && <div className='error-message'>{error}</div>}
 
                     <div className="input-group">
                         <label htmlFor="username">Username</label>

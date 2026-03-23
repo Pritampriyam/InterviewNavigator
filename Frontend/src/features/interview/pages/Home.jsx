@@ -2,20 +2,33 @@ import React, { useState, useRef } from 'react'
 import "../style/home.scss"
 import { useInterview } from '../hooks/useInterview.js'
 import { useNavigate } from 'react-router'
+import { useAuth } from '../../auth/hooks/useAuth'
 
 const Home = () => {
 
-    const { loading, generateReport,reports } = useInterview()
+    const { loading, generateReport, reports } = useInterview()
+    const { handleLogout } = useAuth()
     const [ jobDescription, setJobDescription ] = useState("")
     const [ selfDescription, setSelfDescription ] = useState("")
     const resumeInputRef = useRef()
 
     const navigate = useNavigate()
 
+    const handleLogoutClick = async () => {
+        await handleLogout()
+        navigate('/login')
+    }
+
     const handleGenerateReport = async () => {
         const resumeFile = resumeInputRef.current.files[ 0 ]
+        console.log("[Home] generateReport called", { jobDescription, selfDescription, resumeFile })
         const data = await generateReport({ jobDescription, selfDescription, resumeFile })
-        navigate(`/interview/${data._id}`)
+        console.log("[Home] generateReport returned", data)
+        if (data && data._id) {
+            navigate(`/interview/${data._id}`)
+        } else {
+            console.error("[Home] generateReport didn\'t return valid report", data)
+        }
     }
 
     if (loading) {
@@ -31,7 +44,10 @@ const Home = () => {
 
             {/* Page Header */}
             <header className='page-header'>
-                <h1>Create Your Custom <span className='highlight'>Interview Plan</span></h1>
+                <div className='page-header__top'>
+                    <h1>Create Your Custom <span className='highlight'>Interview Plan</span></h1>
+                    <button className='button secondary-button logout-button' onClick={handleLogoutClick}>Logout</button>
+                </div>
                 <p>Let our AI analyze the job requirements and your unique profile to build a winning strategy.</p>
             </header>
 
