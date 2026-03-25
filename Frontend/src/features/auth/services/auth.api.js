@@ -1,7 +1,7 @@
 import axios from "axios"
 
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? "https://interviewnavigatorbackend.onrender.com" : "http://localhost:3000")
 console.log("[Auth API] API_BASE_URL", API_BASE_URL)
 
 const api = axios.create({
