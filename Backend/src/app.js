@@ -9,7 +9,9 @@ app.use(cookieParser())
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        "http://localhost:5174"
+        "http://localhost:5174",
+        "https://interviewnavigator-a71o.onrender.com",  // frontend deployed URL
+        "https://interviewnavigatorbackend.onrender.com" // if frontend is served from same domain in some setup
     ],
     credentials: true
 }))
